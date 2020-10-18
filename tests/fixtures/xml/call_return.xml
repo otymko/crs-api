@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crs:call_return xmlns:crs="http://v8.1c.ru/8.2/crs">
+   <crs:info>
+      <crs:info>
+         <crs:version>
+            <crs:major value="7" />
+            <crs:minor value="0" />
+         </crs:version>
+         <crs:depotID value="101516b6-fa72-11ea-4d83-0242ac190002" />
+         <crs:rootID value="08469dd0-0f23-490f-ba5d-467092d3d9bd" />
+         <crs:mode value="80306" />
+      </crs:info>
+      <crs:date value="2020-09-19T12:17:19" />
+      <crs:isExtension value="false" />
+   </crs:info>
+</crs:call_return>
