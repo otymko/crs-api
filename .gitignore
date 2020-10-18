@@ -1,2 +1,4 @@
 build
 out
+oscript_modules
+*.ospx
