@@ -1,6 +1,10 @@
 name: Тестирование
 
 on:
+  push:
+      branches:
+      - develop
+      - mail
   pull_request:
 
 jobs:
