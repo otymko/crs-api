@@ -2,9 +2,6 @@ name: Контроль качества
 
 on:
   push:
-      branches:
-      - develop
-      - mail
   pull_request:
 
 jobs:
@@ -18,6 +15,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      # https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Установка OneScript
         uses: otymko/setup-onescript@v1.0
         with:
@@ -25,7 +27,7 @@ jobs:
       - name: Установка зависимостей
         run: |
           opm install opm
-          opm install xml-parser@0.1.1 && opm install 1connector@2.1.3 && opm install 1bdd && opm install 1testrunner && opm install asserts && opm install fs
+          opm install xml-parser@0.1.1 && opm install 1connector@2.1.3 && opm install 1bdd && opm install 1testrunner && opm install asserts && opm install fs && opm install coverage
       - name: Авторизация в hub.docker
         uses: azure/docker-login@v1
         with:
@@ -37,7 +39,19 @@ jobs:
         run: opm run coverage
       - name: Установка Sonar-scanner
         uses: warchant/setup-sonar-scanner@v1
-      - name: Анализ в SonarQube 
+      - name: Анализ в SonarQube (branch)
+        if: github.event_name == 'push' && github.event.pull_request.head.repo.full_name == github.event.repository.full_name
         run: sonar-scanner
             -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
             -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
+            -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
+      - name: Анализ в SonarQube (pull-request)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.event.repository.full_name
+        run: sonar-scanner
+            -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+            -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
+            -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
+            -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+            -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+            -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+            -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
