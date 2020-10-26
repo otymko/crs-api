@@ -40,7 +40,7 @@ jobs:
       - name: Установка Sonar-scanner
         uses: warchant/setup-sonar-scanner@v1
       - name: Анализ в SonarQube (branch)
-        if: github.event_name == 'push' && github.event.pull_request.head.repo.full_name == github.event.repository.full_name
+        if: github.event_name == 'push' && github.event.push.head.repo.full_name == github.event.repository.full_name
         run: sonar-scanner
             -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
             -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
