@@ -1,9 +1,6 @@
 name: Контроль качества
 
-on:
-  push:
-  pull_request:
-
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
