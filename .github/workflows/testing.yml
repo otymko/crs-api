@@ -26,11 +26,11 @@ jobs:
         run: |
           opm install opm
           opm install xml-parser@0.1.1 && opm install 1connector@2.1.3 && opm install 1bdd && opm install 1testrunner && opm install asserts && opm install fs
-      - name: Авторизация в hub.docker
-        uses: azure/docker-login@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      # - name: Авторизация в hub.docker
+      #   uses: azure/docker-login@v1
+      #   with:
+      #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Запуск CRS
         run: docker run --name crs-host -d -p "5000:80" otymko/crs-apache:8.3.12.1855
       - name: Тестирование
