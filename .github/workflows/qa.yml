@@ -1,9 +1,6 @@
 name: Контроль качества
 
-on:
-  push:
-  pull_request:
-
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -40,13 +37,13 @@ jobs:
       - name: Установка Sonar-scanner
         uses: warchant/setup-sonar-scanner@v1
       - name: Анализ в SonarQube (branch)
-        if: github.event_name == 'push' && github.event.pull_request.head.repo.full_name == github.event.repository.full_name
+        if: github.event_name == 'push' && github.repository == 'otymko/crs-api'
         run: sonar-scanner
             -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
             -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
             -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
       - name: Анализ в SonarQube (pull-request)
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.event.repository.full_name
+        if: github.event_name == 'pull_request' && github.repository == 'otymko/crs-api'
         run: sonar-scanner
             -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
             -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
