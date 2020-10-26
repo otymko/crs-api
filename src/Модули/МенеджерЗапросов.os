@@ -1,5 +1,16 @@
 #Область СлужебныйПрограммныйИнтерфейс
 
+Функция ТелоЗапросаНаОткрытиеХранилища(Параметры) Экспорт
+	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
+		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""DevDepotAdmin_openDevDepot"" version=""" + Параметры.ВерсияПлатформы + """>
+		|<crs:params>
+		|<crs:alias value=""" + Параметры.ИмяХранилища + """/>
+		|<crs:convert value=""false""/>
+		|</crs:params>
+		|</crs:call>";
+	Возврат ТелоЗапроса;
+КонецФункции
+
 Функция ТелоЗапросаНаСозданиеХранилища(Параметры) Экспорт
 	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
 		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""DevDepotAdmin_createDevDepot"" version=""" + Параметры.ВерсияПлатформы + """>
