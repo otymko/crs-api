@@ -2,3 +2,5 @@ build
 out
 oscript_modules
 *.ospx
+coverage
+.vscode/launch.json
