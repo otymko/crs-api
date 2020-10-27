@@ -27,9 +27,15 @@ jobs:
       - name: Заливка артифактов
         uses: actions/upload-artifact@v2
         with:
+          name: crs-api.zip
           path: ./crs-api-*.ospx
       - name: Заливка в релиз
         uses: AButler/upload-release-assets@v1.0
         with:
           files: ./crs-api-*.ospx
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Публикация в hub.oscript.io
+        shell: bash
+        run: opm push -f ./crs-api-*.ospx --token ${{ env.TOKEN }} -c stable
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
