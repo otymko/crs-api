@@ -1,0 +1,21 @@
+name: Проверка забавы ради
+
+on: [push]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
+        oscript_version: ['1.2.0']
+
+    steps:
+      - uses: actions/checkout@v2
+      # https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions
+      - name: Извлечение версии пакета
+        shell: bash
+        run: echo "##[set-output name=version;]`cat packagedef | grep ".Версия(" | sed 's|[^"]*"||' | sed -r 's/".+//'`"
+        id: extract_version
+      - name: Печать версии
+        run: echo ${{ steps.extract_version.outputs.version }}
