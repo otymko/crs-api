@@ -1,5 +1,16 @@
 #Область СлужебныйПрограммныйИнтерфейс
 
+Функция ТелоЗапросаНаОткрытиеХранилища(Параметры) Экспорт
+	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
+		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""DevDepotAdmin_openDevDepot"" version=""" + Параметры.ВерсияПлатформы + """>
+		|<crs:params>
+		|<crs:alias value=""" + Параметры.ИмяХранилища + """/>
+		|<crs:convert value=""false""/>
+		|</crs:params>
+		|</crs:call>";
+	Возврат ТелоЗапроса;
+КонецФункции
+
 Функция ТелоЗапросаНаСозданиеХранилища(Параметры) Экспорт
 	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
 		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""DevDepotAdmin_createDevDepot"" version=""" + Параметры.ВерсияПлатформы + """>
@@ -25,6 +36,30 @@
 		|version=""" + Параметры.ВерсияПлатформы + """>
 		|<crs:auth user=""" + Параметры.ПользовательХранилища + """ password=""" + Параметры.ХешПароляПользователя + """/>
 		|<crs:params/>
+		|</crs:call>";
+	Возврат ТелоЗапроса;
+КонецФункции
+
+Функция ТелоЗапросаПолученияВерсийХранилища(Параметры) Экспорт
+	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
+		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""DevDepot_devDepotVersions"" version=""" + Параметры.ВерсияПлатформы + """>
+		|<crs:auth user=""" + Параметры.ПользовательХранилища + """ password=""" + Параметры.ХешПароляПользователя + """/>
+		|<crs:params>
+		|<crs:filter>
+		|<crs:mask value=""0""/>
+		|<crs:beginDate value=""0001-01-01T00:00:00""/>
+		|<crs:endDate value=""0001-01-01T00:00:00""/>
+		|<crs:beginVerNum>4294967295</crs:beginVerNum>
+		|<crs:endVerNum>4294967295</crs:endVerNum>
+		|<crs:userIDs/>
+		|<crs:objRefs/>
+		|<crs:recursive value=""false""/>
+		|<crs:labels value=""true""/>
+		|<crs:onlyLabels value=""false""/>
+		|<crs:configVersion value=""""/>
+		|<crs:externals/>
+		|<crs:noExternals/>
+		|</crs:filter></crs:params>
 		|</crs:call>";
 	Возврат ТелоЗапроса;
 КонецФункции
@@ -61,6 +96,18 @@
 Функция ТелоЗапросаНаУдалениеПользователя(Параметры) Экспорт
 	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
 		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""UserManager_removeUser"" version=""" + Параметры.ВерсияПлатформы + """>
+		|<crs:auth user=""" + Параметры.ПользовательХранилища + """ password=""" + Параметры.ХешПользователяХранилища + """ />
+		|<crs:bind bindID=""" + Параметры.ИдентификаторПодключения + """/>
+		|<crs:params>
+		|<crs:id value=""" + Параметры.ИдентификаторПользователя + """/>
+		|</crs:params>
+		|</crs:call>";
+	Возврат ТелоЗапроса;
+КонецФункции
+
+Функция ТелоЗапросаНаВосстановлениеПользователя(Параметры) Экспорт
+	ТелоЗапроса = "<?xml version=""1.0"" encoding=""UTF-8""?>
+		|<crs:call xmlns:crs=""http://v8.1c.ru/8.2/crs"" alias=""" + Параметры.ИмяХранилища + """ name=""UserManager_resurrectUser"" version=""" + Параметры.ВерсияПлатформы + """>
 		|<crs:auth user=""" + Параметры.ПользовательХранилища + """ password=""" + Параметры.ХешПользователяХранилища + """ />
 		|<crs:bind bindID=""" + Параметры.ИдентификаторПодключения + """/>
 		|<crs:params>
