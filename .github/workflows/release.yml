@@ -38,4 +38,4 @@ jobs:
         shell: bash
         run: opm push -f ./crs-api-*.ospx --token ${{ env.TOKEN }} -c stable
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.OSHUB_TOKEN }}
