@@ -34,6 +34,10 @@ jobs:
         run: docker run --name crs-host -d -p "5000:80" otymko/crs-apache:8.3.12.1855
       - name: Покрытие кода
         run: opm run coverage
+      - name: Извлечение версии пакета
+        shell: bash
+        run: echo "##[set-output name=version;]`cat packagedef | grep ".Версия(" | sed 's|[^"]*"||' | sed -r 's/".+//'`"
+        id: extract_version
       - name: Установка Sonar-scanner
         uses: warchant/setup-sonar-scanner@v1
       - name: Анализ в SonarQube (branch)
@@ -42,6 +46,7 @@ jobs:
             -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
             -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
             -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
+            -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
       - name: Анализ в SonarQube (pull-request)
         if: github.event_name == 'pull_request' && github.repository == 'otymko/crs-api'
         run: sonar-scanner
