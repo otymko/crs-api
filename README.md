@@ -1,5 +1,11 @@
 # CRS API - библиотека взаимодействия c сервером хранилищ 1С по HTTP
 
+[![GitHub release](https://img.shields.io/github/release/otymko/crs-api.svg?style=flat-square)](https://github.com/otymko/crs-api/releases)
+[![Статус Порога Качества](https://open.checkbsl.org/api/project_badges/measure?project=crs-api&metric=alert_status)](https://open.checkbsl.org/dashboard?id=crs-api)
+[![Покрытие](https://open.checkbsl.org/api/project_badges/measure?project=crs-api&metric=coverage)](https://open.checkbsl.org/dashboard?id=crs-api)
+[![Технический долг](https://open.checkbsl.org/api/project_badges/measure?project=crs-api&metric=sqale_index)](https://open.checkbsl.org/dashboard?id=crs-api)
+[![GitHub license](https://img.shields.io/github/license/otymko/crs-api.svg?style=flat-square)](https://github.com/otymko/crs-api/blob/develop/LICENSE.md)
+
 ## Краткое описание
 
 Библиотека позволяет напрямую взаимодействовать с сервером хранилища 1С по протоколу HTTP. 
