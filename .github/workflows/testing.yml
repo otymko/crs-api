@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Установка OneScript
-        uses: otymko/setup-onescript@v1.0
+        uses: otymko/setup-onescript@v1.1
         with:
           version: ${{ matrix.oscript_version }}
       - name: Установка зависимостей
