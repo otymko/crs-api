@@ -39,7 +39,7 @@ jobs:
         run: echo "##[set-output name=version;]`cat packagedef | grep ".Версия(" | sed 's|[^"]*"||' | sed -r 's/".+//'`"
         id: extract_version
       - name: Установка Sonar-scanner
-        uses: warchant/setup-sonar-scanner@v1
+        uses: warchant/setup-sonar-scanner@v3
       - name: Анализ в SonarQube (branch)
         if: github.event_name == 'push' && github.repository == 'otymko/crs-api'
         run: sonar-scanner
